@@ -5,6 +5,8 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import GlobalStyles from "../GlobalStyles";
 import Header from "./Header";
 import HomePage from "./HomePage";
+//import MapComponent from "./Map";
+import Map from "./Map";
 
 const App = () => {
   const [bacon, setBacon] = useState(null);
@@ -26,6 +28,19 @@ const App = () => {
         <Switch>
           <Route exact path="/">
             <HomePage />
+          </Route>
+          <Route exact path="/map">
+            {/* <div styled={{ width: "100vw", height: "100vh" }}>
+              <WrappedMap
+                async
+                defer
+                googleMapURL={`"https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}"`}
+                loadingElement={<div style={{ height: `100%` }} />}
+                containerElement={<div style={{ height: `400px` }} />}
+                mapElement={<div style={{ height: `100%` }} />}
+              />
+            </div> */}
+            <Map />
           </Route>
         </Switch>
       </Wrapper>
