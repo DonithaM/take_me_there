@@ -41,7 +41,7 @@
 import React from "react";
 import { Legend, DataLabel, MapsTooltip } from "@syncfusion/ej2-maps";
 import styled from "styled-components";
-import { countries_data } from "../assets/data";
+//import { countries_data } from "../assets/data";
 import { canada_data } from "../assets/canada";
 
 import {
