@@ -3,10 +3,11 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
-//require("dotenv").config();
-const PORT = 4000;
+require("dotenv").config();
 
-console.log("hello");
+const { signup, login } = require("./handlers/Userhandlers");
+
+const PORT = 4000;
 
 express()
   .use(function (req, res, next) {
@@ -27,5 +28,7 @@ express()
   .use("/", express.static(__dirname + "/"))
 
   .get("/bacon", (req, res) => res.status(200).json("🥓"))
+  .post("/signup", signup)
+  .post("/login", login)
 
   .listen(PORT, () => console.info(`Listening on port ${PORT}`));
