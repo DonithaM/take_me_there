@@ -6,6 +6,8 @@ const morgan = require("morgan");
 //require("dotenv").config();
 const PORT = 4000;
 
+console.log("hello");
+
 express()
   .use(function (req, res, next) {
     res.header(
