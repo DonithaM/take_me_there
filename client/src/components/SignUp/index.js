@@ -4,7 +4,7 @@ import SignUpForm from "./SignUpForm";
 const SignUp = () => {
   return (
     <>
-      <div>Sign Up</div>
+      <div>Sign Up Form</div>
       <SignUpForm />
     </>
   );
