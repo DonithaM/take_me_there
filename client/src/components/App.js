@@ -5,6 +5,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import GlobalStyles from "../GlobalStyles";
 import Header from "./Header";
 import HomePage from "./HomePage";
+import SignUpForm from "./SignUp";
 //import MapComponent from "./Map";
 import Map from "./Map";
 
@@ -28,6 +29,9 @@ const App = () => {
         <Switch>
           <Route exact path="/">
             <HomePage />
+          </Route>
+          <Route exact path="/signup">
+            <SignUpForm />
           </Route>
           <Route exact path="/map">
             {/* <div styled={{ width: "100vw", height: "100vh" }}>
