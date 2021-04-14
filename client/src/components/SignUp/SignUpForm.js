@@ -15,7 +15,7 @@ const SignUpForm = () => {
   const [disabled, setDisabled] = useState(true);
 
   //Error box that displays a message
-  const errorBox = useRef(null);
+  const errorMsg = useRef(null);
   //Username, email, password and confirm password fields
   const username = useRef(null);
   const email = useRef(null);
@@ -45,28 +45,28 @@ const SignUpForm = () => {
       emailParts[1].length === 0 ||
       formData.email.includes(".com") === false
     ) {
-      errorBox.current.style.display = "block";
-      errorBox.current.innerHTML = "Not a valid email format";
+      errorMsg.current.style.display = "block";
+      errorMsg.current.innerHTML = "Not a valid email format";
       email.current.style.border = "2px solid red";
       email.current.focus();
     } //check if username is atleast 3 characters
     else if (formData.username.length < 3) {
-      errorBox.current.style.display = "block";
-      errorBox.current.innerHTML =
+      errorMsg.current.style.display = "block";
+      errorMsg.current.innerHTML =
         "Please enter a username that is at least 3 characters long";
       email.current.style.border = "2px solid red";
       email.current.focus();
     } //check if password is atleast 5 characters long
     else if (formData.password.length < 5) {
-      errorBox.current.style.display = "block";
-      errorBox.current.innerHTML =
+      errorMsg.current.style.display = "block";
+      errorMsg.current.innerHTML =
         "Please enter a password that is at least 5 characters long";
       email.current.style.border = "2px solid red";
       email.current.focus();
     } //check if password and confirm password fields match
     else if (formData.password !== formData.confirmPassword) {
-      errorBox.current.style.display = "block";
-      errorBox.current.innerHTML =
+      errorMsg.current.style.display = "block";
+      errorMsg.current.innerHTML =
         "Your passwords didn't match! Please provide the same passwords in each field";
       confirmPassword.current.style.border = "2px solid red";
       confirmPassword.current.focus();
@@ -134,7 +134,7 @@ const SignUpForm = () => {
         />
         <button onClick={handleSubmit}>Submit</button>
       </form>
-      <div ref={errorBox} id="error" name="error"></div>
+      <div ref={errorMsg} id="error" name="error"></div>
     </>
   );
 };
