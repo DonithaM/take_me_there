@@ -9,6 +9,7 @@ import SignUpForm from "./SignUp";
 import LoginForm from "./Login";
 //import MapComponent from "./Map";
 import Map from "./Map";
+import Business from "./Map/Business";
 
 const App = () => {
   const [bacon, setBacon] = useState(null);
@@ -49,6 +50,9 @@ const App = () => {
               />
             </div> */}
             <Map />
+          </Route>
+          <Route exact path="/business">
+            <Business />
           </Route>
         </Switch>
       </Wrapper>
