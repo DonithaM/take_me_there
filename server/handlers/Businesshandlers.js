@@ -7,9 +7,11 @@ const center = {
   lng: -79.383186,
 };
 
+const radius = 5000;
+
 const getNearbyRestaurants = async (req, res) => {
   const response = await fetch(
-    `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${center.lat},${center.lng}&radius=1500&type=restaurant&keyword=cruise&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`,
+    `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${center.lat},${center.lng}&radius=${radius}&type=restaurant&keyword=cruise&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`,
     {
       method: "GET",
       headers: {
@@ -34,7 +36,7 @@ const getNearbyRestaurants = async (req, res) => {
 
 const getNearbyCafes = async (req, res) => {
   const response = await fetch(
-    `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${center.lat},${center.lng}&radius=1500&type=cafe&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`,
+    `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${center.lat},${center.lng}&radius=${radius}&type=cafe&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`,
     {
       method: "GET",
       headers: {
@@ -54,7 +56,7 @@ const getNearbyCafes = async (req, res) => {
 
 const getNearbyAttractions = async (req, res) => {
   const response = await fetch(
-    `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${center.lat},${center.lng}&radius=1500&type=tourist_attraction&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`,
+    `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${center.lat},${center.lng}&radius=${radius}&type=tourist_attraction&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`,
     {
       method: "GET",
       headers: {
@@ -74,7 +76,7 @@ const getNearbyAttractions = async (req, res) => {
 
 const getNearbyMuseums = async (req, res) => {
   const response = await fetch(
-    `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${center.lat},${center.lng}&radius=1500&type=museum&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`,
+    `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${center.lat},${center.lng}&radius=${radius}&type=museum&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`,
     {
       method: "GET",
       headers: {
@@ -94,7 +96,7 @@ const getNearbyMuseums = async (req, res) => {
 
 const getNearbyNightClubs = async (req, res) => {
   const response = await fetch(
-    `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${center.lat},${center.lng}&radius=1500&type=night_club&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`,
+    `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${center.lat},${center.lng}&radius=${radius}&type=night_club&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`,
     {
       method: "GET",
       headers: {
