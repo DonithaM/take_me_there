@@ -51,9 +51,9 @@ const App = () => {
             </div> */}
             <Map />
           </Route>
-          <Route exact path="/business">
+          {/* <Route exact path="/business">
             <Business />
-          </Route>
+          </Route> */}
         </Switch>
       </Wrapper>
     </BrowserRouter>

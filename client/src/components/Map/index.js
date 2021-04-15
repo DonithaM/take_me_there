@@ -8,6 +8,7 @@ import {
 } from "@react-google-maps/api";
 
 import MapStyles from "./MapStyles";
+import React, { useEffect, useState } from "react";
 
 const libraries = ["places"];
 
@@ -27,6 +28,29 @@ const center = {
 // };
 
 const Map = () => {
+  const [restaurantList, setRestaurantList] = useState([]);
+  //make separate States for each category
+
+  useEffect(() => {
+    fetch("/getRestaurants")
+      .then((res) => {
+        return res.json();
+      })
+      .then((jsonData) => {
+        setRestaurantList(jsonData.data);
+      });
+
+    // fetch("/getNightClubs") //Clubs or bars
+    // .then((res) => {
+    //   return res.json();
+    // })
+    // .then((jsonData) => {
+    //   console.log(jsonData);
+    // });
+
+    //fetch others
+  }, []);
+
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries,
@@ -41,11 +65,23 @@ const Map = () => {
     <Wrapper>
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
-        zoom={8}
+        zoom={14}
         center={center}
         // options={options}
       >
         {/* TODO: loop/map over the data and set markers for each business */}
+        {console.log(restaurantList)}
+        {restaurantList.map((restaurant) => {
+          return (
+            <Marker
+              key={restaurant.place_id}
+              position={{
+                lat: restaurant.geometry.location.lat,
+                lng: restaurant.geometry.location.lng,
+              }}
+            />
+          );
+        })}
         <Marker position={{ lat: center.lat, lng: center.lng }} />
       </GoogleMap>
     </Wrapper>
