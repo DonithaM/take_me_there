@@ -131,10 +131,12 @@ const Map = () => {
             onCloseClick={() => {
               setSelectedSpot(null);
             }}
+            // url={{selectedSpot.photos[0].getUrl({maxWidth: 35, maxHeight: 35})}}
           >
             <div>
               <h4>{selectedSpot.name}</h4>
               <img src={selectedSpot.icon} />
+
               <p>Price level: {selectedSpot.price_level}/5</p>
               <p>Rating: {selectedSpot.rating}</p>
               {selectedSpot.opening_hours ? <p>Open Now</p> : <p>Closed :(</p>}
