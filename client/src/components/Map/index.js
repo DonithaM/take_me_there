@@ -23,12 +23,13 @@ const center = {
   lng: -79.383186,
 };
 
-// const options = {
-//   styles: MapStyles,
-// };
+const options = {
+  styles: MapStyles,
+};
 
 const Map = () => {
   const [restaurantList, setRestaurantList] = useState([]);
+  const [clubsList, setClubsList] = useState([]);
   const [selectedSpot, setSelectedSpot] = useState(null); //state for clicked marker
 
   useEffect(() => {
@@ -40,13 +41,14 @@ const Map = () => {
         setRestaurantList(jsonData.data);
       });
 
-    // fetch("/getNightClubs") //Clubs or bars
-    // .then((res) => {
-    //   return res.json();
-    // })
-    // .then((jsonData) => {
-    //   console.log(jsonData);
-    // });
+    fetch("/getNightClubs") //Clubs or bars
+      .then((res) => {
+        return res.json();
+      })
+      .then((jsonData) => {
+        console.log("night clubs", jsonData);
+        setClubsList(jsonData.data);
+      });
 
     //fetch others
   }, []);
@@ -65,33 +67,60 @@ const Map = () => {
     <Wrapper>
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
-        zoom={14}
+        zoom={15}
         center={center}
-        // options={options}
+        options={options}
       >
         {console.log(restaurantList)}
-        {restaurantList.map((restaurant) => {
-          return (
-            <>
-              <Marker
-                key={restaurant.place_id}
-                position={{
-                  lat: restaurant.geometry.location.lat,
-                  lng: restaurant.geometry.location.lng,
-                }}
-                onClick={() => {
-                  setSelectedSpot(restaurant);
-                }}
-                icon={{
-                  url: "/restaurant.svg",
-                  scaledSize: new window.google.maps.Size(24, 24),
-                  color: "black",
-                }}
-              />
-            </>
-          );
-        })}
-        <Marker position={{ lat: center.lat, lng: center.lng }} />
+        {restaurantList &&
+          restaurantList.map((restaurant) => {
+            return (
+              <>
+                <Marker
+                  key={restaurant.place_id}
+                  position={{
+                    lat: restaurant.geometry.location.lat,
+                    lng: restaurant.geometry.location.lng,
+                  }}
+                  onClick={() => {
+                    setSelectedSpot(restaurant);
+                  }}
+                  icon={{
+                    url: "/restaurant.svg",
+                    scaledSize: new window.google.maps.Size(25, 25),
+                    color: "black",
+                  }}
+                />
+              </>
+            );
+          })}
+
+        {clubsList &&
+          clubsList.map((club) => {
+            return (
+              <>
+                <Marker
+                  key={club.place_id}
+                  position={{
+                    lat: club.geometry.location.lat,
+                    lng: club.geometry.location.lng,
+                  }}
+                  onClick={() => {
+                    setSelectedSpot(club);
+                  }}
+                  icon={{
+                    url: "/night_club.svg",
+                    scaledSize: new window.google.maps.Size(24, 24),
+                    color: "black",
+                  }}
+                />
+              </>
+            );
+          })}
+        <Marker
+          position={{ lat: center.lat, lng: center.lng }}
+          key={center.lat}
+        />
 
         {selectedSpot && (
           <InfoWindow
@@ -123,68 +152,3 @@ const Wrapper = styled.div`
 `;
 
 export default Map;
-
-// import React from "react";
-// import { Legend, DataLabel, MapsTooltip } from "@syncfusion/ej2-maps";
-// import styled from "styled-components";
-// //import { countries_data } from "../assets/data";
-// import { canada_data } from "../assets/canada";
-
-// import {
-//   MapsComponent,
-//   LayerDirective,
-//   LayersDirective,
-//   MarkerDirective,
-//   MarkersDirective,
-//   Inject,
-//   Marker,
-//   Zoom,
-// } from "@syncfusion/ej2-react-maps";
-
-// const Map = () => {
-//   return (
-//     <Wrapper>
-//       <MapsComponent
-//         zoomSettings={{
-//           enable: true,
-//           horizontalAlignment: "Near",
-//           shouldZoomInitially: true,
-//         }}
-//       >
-//         <Inject services={[DataLabel, Legend, MapsTooltip, Marker, Zoom]} />
-//         <LayersDirective>
-//           <LayerDirective shapeData={canada_data}>
-//             <MarkersDirective>
-//               <MarkerDirective
-//                 shape={"Circle"}
-//                 visible={true}
-//                 shapeValuePath={"shape"}
-//                 colorValuePath={"color"}
-//                 // template='<div id="marker1">Toronto</div>'
-//                 dataSource={[
-//                   {
-//                     latitude: 43.65107,
-//                     longitude: -79.347015,
-//                     name: "Toronto, ON",
-//                     color: "red",
-//                     // shape: "Triangle",
-//                   },
-//                 ]}
-//               ></MarkerDirective>
-
-//               <MarkerDirective
-//                 visible={true}
-//                 height={30}
-//                 width={30}
-//                 template='<div id="marker1">Montreal</div>'
-//                 dataSource={[{ latitude: 45.5017, longitude: -45.5017 }]}
-//               ></MarkerDirective>
-//             </MarkersDirective>
-//           </LayerDirective>
-//         </LayersDirective>
-//       </MapsComponent>
-//     </Wrapper>
-//   );
-// };
-
-// const Wrapper = styled.div``;
