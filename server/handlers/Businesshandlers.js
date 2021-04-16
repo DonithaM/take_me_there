@@ -7,7 +7,7 @@ const center = {
   lng: -79.383186,
 };
 
-const radius = 5000;
+const radius = 7000;
 
 const getNearbyRestaurants = async (req, res) => {
   const response = await fetch(

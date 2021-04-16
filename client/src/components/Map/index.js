@@ -1,4 +1,5 @@
 //import { GoogleMap, withScriptjs, withGoogleMap } from "react-google-maps";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import {
   GoogleMap,
@@ -6,9 +7,8 @@ import {
   Marker,
   InfoWindow,
 } from "@react-google-maps/api";
-
+import { BiRestaurant } from "react-icons/bi";
 import MapStyles from "./MapStyles";
-import React, { useEffect, useState } from "react";
 
 const libraries = ["places"];
 
@@ -29,7 +29,7 @@ const center = {
 
 const Map = () => {
   const [restaurantList, setRestaurantList] = useState([]);
-  //make separate States for each category
+  const [selectedSpot, setSelectedSpot] = useState(null); //state for clicked marker
 
   useEffect(() => {
     fetch("/getRestaurants")
@@ -69,20 +69,50 @@ const Map = () => {
         center={center}
         // options={options}
       >
-        {/* TODO: loop/map over the data and set markers for each business */}
         {console.log(restaurantList)}
         {restaurantList.map((restaurant) => {
           return (
-            <Marker
-              key={restaurant.place_id}
-              position={{
-                lat: restaurant.geometry.location.lat,
-                lng: restaurant.geometry.location.lng,
-              }}
-            />
+            <>
+              <Marker
+                key={restaurant.place_id}
+                position={{
+                  lat: restaurant.geometry.location.lat,
+                  lng: restaurant.geometry.location.lng,
+                }}
+                onClick={() => {
+                  setSelectedSpot(restaurant);
+                }}
+                icon={{
+                  url: "/restaurant.svg",
+                  scaledSize: new window.google.maps.Size(24, 24),
+                  color: "black",
+                }}
+              />
+            </>
           );
         })}
         <Marker position={{ lat: center.lat, lng: center.lng }} />
+
+        {selectedSpot && (
+          <InfoWindow
+            position={{
+              lat: selectedSpot.geometry.location.lat,
+              lng: selectedSpot.geometry.location.lng,
+            }}
+            onCloseClick={() => {
+              setSelectedSpot(null);
+            }}
+          >
+            <div>
+              <h4>{selectedSpot.name}</h4>
+              <img src={selectedSpot.icon} />
+              <p>Price level: {selectedSpot.price_level}/5</p>
+              <p>Rating: {selectedSpot.rating}</p>
+              {selectedSpot.opening_hours ? <p>Open Now</p> : <p>Closed :(</p>}
+              <p></p>
+            </div>
+          </InfoWindow>
+        )}
       </GoogleMap>
     </Wrapper>
   );
