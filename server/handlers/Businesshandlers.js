@@ -24,13 +24,11 @@ const getNearbyRestaurants = async (req, res) => {
       return res.json();
     })
     .then((jsonData) => {
-      //console.log(jsonData);
       res.status(200).json({
         status: 200,
         message: "Nearby restaurants",
         data: jsonData.results,
       });
-      //res.send(jsonData.results);
     });
 };
 
@@ -109,8 +107,11 @@ const getNearbyNightClubs = async (req, res) => {
       return res.json();
     })
     .then((jsonData) => {
-      //console.log(jsonData);
-      res.send(jsonData.results);
+      res.status(200).json({
+        status: 200,
+        message: "Nearby Night Clubs",
+        data: jsonData.results,
+      });
     });
 };
 
