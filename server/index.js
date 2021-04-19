@@ -71,7 +71,12 @@ express()
         upload_preset: "dev_setups",
       });
       console.log("upload response :", uploadedResponse);
-      res.json({ msg: "Upload Successful" });
+      //res.json({ msg: "Upload Successful" });
+      res.status(201).json({
+        status: 201,
+        message: "Successfully uploaded",
+        public_id: uploadedResponse.public_id,
+      });
     } catch (err) {
       console.log(err);
       res.status(500).json({ err: "Something went wrong" });

@@ -2,10 +2,14 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 const UploadForm = () => {
+  //form
   const [formData, setFormData] = useState({});
+  //images
   const [fileInput, setFileInput] = useState("");
   const [selectedFile, setSelectedFile] = useState("");
   const [previewSource, setPreviewSource] = useState();
+  //for loading images
+  const [images, setImages] = useState();
 
   //   const handleChange = (value, name) => {
   //     setFormData({ ...formData, [name]: value });
@@ -58,7 +62,14 @@ const UploadForm = () => {
           Accept: "application/json",
           "Content-type": "application/json",
         },
-      });
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then((data) => {
+          console.log("from inside fetch of Upload", data);
+          setImages([data.public_id, ...images]);
+        });
       setFileInput("");
     } catch (error) {
       console.log(error);
