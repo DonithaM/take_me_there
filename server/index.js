@@ -13,6 +13,7 @@ const {
   getNearbyMuseums,
   getNearbyNightClubs,
 } = require("./handlers/Businesshandlers");
+const { cloudinary } = require("./utils/cloudinary");
 
 const PORT = 4000;
 
@@ -30,8 +31,9 @@ express()
   })
   .use(morgan("tiny"))
   .use(express.static("./server/assets"))
-  .use(bodyParser.json())
-  .use(express.urlencoded({ extended: false }))
+  //.use(bodyParser.json())
+  .use(express.json({ limit: "50mb" }))
+  .use(express.urlencoded({ limit: "50mb", extended: true }))
   .use("/", express.static(__dirname + "/"))
 
   //test endpoint
@@ -47,5 +49,33 @@ express()
   .get("/getTouristAttractions", getNearbyAttractions)
   .get("/getMuseums", getNearbyMuseums)
   .get("/getNightClubs", getNearbyNightClubs)
+
+  //cloudinary
+  //get images uploaded to cloudinary
+  .get("/getImages", async (req, res) => {
+    const { resources } = await cloudinary.search
+      .expression("folder:dev_setups")
+      .sort_by("public_id", "desc")
+      .max_results(15)
+      .execute();
+    const publicIds = resources.map((file) => file.public_id);
+    res.send(publicIds);
+  })
+
+  //upload images to cloudinary
+  .post("/upload", async (req, res) => {
+    try {
+      const fileStr = req.body.data;
+      //console.log("image string :", fileStr);
+      const uploadedResponse = await cloudinary.uploader.upload(fileStr, {
+        upload_preset: "dev_setups",
+      });
+      console.log("upload response :", uploadedResponse);
+      res.json({ msg: "Upload Successful" });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ err: "Something went wrong" });
+    }
+  })
 
   .listen(PORT, () => console.info(`Listening on port ${PORT}`));

@@ -3,6 +3,9 @@ import { createGlobalStyle } from "styled-components";
 export default createGlobalStyle`
 :root {
       --font-family: 'Cabin', sans-serif;
+      --primary-color: #e7cfff;
+      --secondary-color: #fff;
+      --tertiary-color: #8418ba;
       /* --primary-color: #30139c;
       --secondary-color: #fff;
       --tertiary-color: #744fff; //light purple
@@ -30,7 +33,7 @@ html, body, div, span, applet, object, iframe,
   body{
     scroll-behavior: smooth;
     position: relative; //to fix sticky header and footer positions
-    overflow: hidden; 
+    /* overflow: hidden;  */
   }
 
 /* GLOBAL STYLES */

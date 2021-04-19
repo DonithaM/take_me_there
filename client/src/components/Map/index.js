@@ -33,6 +33,7 @@ const Map = () => {
   const [selectedSpot, setSelectedSpot] = useState(null); //state for clicked marker
 
   useEffect(() => {
+    //get restaurant data from BE
     fetch("/getRestaurants")
       .then((res) => {
         return res.json();
