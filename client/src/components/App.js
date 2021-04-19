@@ -10,18 +10,20 @@ import LoginForm from "./Login";
 //import MapComponent from "./Map";
 import Map from "./Map";
 import Business from "./Map/Business";
+import UploadForm from "./Cloudinary/UploadForm";
+import Album from "./Cloudinary/Album";
 
 const App = () => {
   const [bacon, setBacon] = useState(null);
 
-  //   useEffect(() => {
-  //     fetch("/bacon")
-  //       .then((res) => res.json())
-  //       .then((data) => {
-  //         console.log(data);
-  //         setBacon(data);
-  //       });
-  //   }, []);
+  // useEffect(() => {
+  //   fetch("/getImages")
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       console.log(data);
+  //       setBacon(data);
+  //     });
+  // }, []);
 
   return (
     <BrowserRouter>
@@ -39,27 +41,23 @@ const App = () => {
             <LoginForm />
           </Route>
           <Route exact path="/map">
-            {/* <div styled={{ width: "100vw", height: "100vh" }}>
-              <WrappedMap
-                async
-                defer
-                googleMapURL={`"https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}"`}
-                loadingElement={<div style={{ height: `100%` }} />}
-                containerElement={<div style={{ height: `400px` }} />}
-                mapElement={<div style={{ height: `100%` }} />}
-              />
-            </div> */}
             <Map />
           </Route>
-          {/* <Route exact path="/business">
-            <Business />
-          </Route> */}
+          <Route exact path="/upload">
+            <UploadForm />
+          </Route>
+          <Route exact path="/album">
+            <Album />
+          </Route>
         </Switch>
       </Wrapper>
     </BrowserRouter>
   );
 };
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  background: var(--primary-color);
+  height: 100%;
+`;
 
 export default App;
