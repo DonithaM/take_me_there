@@ -30,8 +30,11 @@ const LoginForm = () => {
     })
       .then((res) => res.json())
       .then((jsonData) => {
-        console.log(jsonData);
         const { data, status, message } = jsonData;
+        console.log("from login: ", data); //has id - store it to local storage
+        //set id - localstorage in  FE
+        localStorage.setItem("user_id", data.id);
+        //data will include the id of the user as well - use it to link to the right user in the db
         if (status === 201) {
           console.log("CONFIRMED", message);
           setSubStatus("confirmed");

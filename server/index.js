@@ -13,6 +13,7 @@ const {
   getNearbyMuseums,
   getNearbyNightClubs,
 } = require("./handlers/Businesshandlers");
+const { postUserReviews } = require("./handlers/Formhandlers");
 const { cloudinary } = require("./utils/cloudinary");
 
 const PORT = 4000;
@@ -56,7 +57,7 @@ express()
     const { resources } = await cloudinary.search
       .expression("folder:dev_setups")
       .sort_by("public_id", "desc")
-      .max_results(15)
+      .max_results(50)
       .execute();
     const publicIds = resources.map((file) => file.public_id);
     res.send(publicIds);
@@ -76,11 +77,14 @@ express()
         status: 201,
         message: "Successfully uploaded",
         public_id: uploadedResponse.public_id,
+        url: uploadedResponse.url,
       });
     } catch (err) {
       console.log(err);
       res.status(500).json({ err: "Something went wrong" });
     }
   })
+
+  .post("/submitReview", postUserReviews)
 
   .listen(PORT, () => console.info(`Listening on port ${PORT}`));

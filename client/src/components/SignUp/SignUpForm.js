@@ -103,7 +103,7 @@ const SignUpForm = () => {
           placeholder="Username"
           type="text"
           handleChange={handleChange}
-          value={formData.username}
+          value={formData.username || ""}
         />
         <Input
           refProp={email}
@@ -112,7 +112,7 @@ const SignUpForm = () => {
           placeholder="Email"
           type="text"
           handleChange={handleChange}
-          value={formData.email}
+          value={formData.email || ""}
         />
         <Input
           refProp={password}
@@ -121,7 +121,7 @@ const SignUpForm = () => {
           placeholder="Password"
           type="password"
           handleChange={handleChange}
-          value={formData.password}
+          value={formData.password || ""}
         />
         <Input
           refProp={confirmPassword}
@@ -130,7 +130,7 @@ const SignUpForm = () => {
           placeholder="Confirm Password"
           type="password"
           handleChange={handleChange}
-          value={formData.confirmPassword}
+          value={formData.confirmPassword || ""}
         />
         <button onClick={handleSubmit}>Submit</button>
       </form>

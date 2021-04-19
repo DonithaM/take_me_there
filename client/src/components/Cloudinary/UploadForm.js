@@ -3,32 +3,28 @@ import styled from "styled-components";
 
 const UploadForm = () => {
   //form
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({
+    id: localStorage.getItem("user_id"),
+  });
   //images
   const [fileInput, setFileInput] = useState("");
   const [selectedFile, setSelectedFile] = useState("");
   const [previewSource, setPreviewSource] = useState();
   //for loading images
-  const [images, setImages] = useState();
+  //const [images, setImages] = useState();
 
-  //   const handleChange = (value, name) => {
-  //     setFormData({ ...formData, [name]: value });
-  //   };
-
-  const handleChange = (value) => {
-    setFormData({ ...formData });
+  const handleChange = (ev) => {
+    setFormData({ ...formData, [ev.target.name]: ev.target.value });
   };
 
-  console.log(formData);
-
-  const handleFileInput = (e) => {
-    const file = e.target.files[0];
+  const handleFileInput = (ev) => {
+    const file = ev.target.files[0];
     setSelectedFile(file);
-    setFileInput(e.target.value);
+    setFileInput(ev.target.value);
     previewFile(file);
   };
 
-  //function that shows user a preview of uploaded image //?
+  //function that shows user a preview of uploaded image
   const previewFile = (file) => {
     const reader = new FileReader(); //FileReader -a built-in JS API
     reader.readAsDataURL(file); //converts image to a string
@@ -37,12 +33,13 @@ const UploadForm = () => {
     };
   };
 
-  const handleSubmitFile = (e) => {
-    e.preventDefault();
+  const handleImageUpload = (ev) => {
+    ev.preventDefault();
     if (!selectedFile) return;
     //FileReader -a built-in JS API to read file contenst
     const reader = new FileReader();
     reader.readAsDataURL(selectedFile); //converts image to a string
+    // console.log("photo url", reader.readAsDataURL(selectedFile));
     reader.onloadend = () => {
       //triggered after reading is done
       uploadImage(reader.result);
@@ -53,7 +50,7 @@ const UploadForm = () => {
   };
 
   const uploadImage = async (base64EncodedImage) => {
-    console.log(base64EncodedImage);
+    //console.log(base64EncodedImage);
     try {
       await fetch("/upload", {
         method: "POST",
@@ -68,9 +65,31 @@ const UploadForm = () => {
         })
         .then((data) => {
           console.log("from inside fetch of Upload", data);
-          setImages([data.public_id, ...images]);
+          console.log("data url", data.url);
+          setFormData({ ...formData, photoUrl: data.url });
         });
       setFileInput("");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //handleReview - fetch post with all form data to BE
+  const handleReviewSubmit = (ev) => {
+    ev.preventDefault();
+    try {
+      fetch("/submitReview", {
+        method: "POST",
+        body: JSON.stringify(formData),
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((jsonData) => {
+          console.log(jsonData);
+        });
     } catch (error) {
       console.log(error);
     }
@@ -80,8 +99,7 @@ const UploadForm = () => {
     <Main>
       <Wrapper>
         <H1>Create Your Review</H1>
-
-        <Form onSubmit={handleSubmitFile}>
+        <Form onSubmit={handleImageUpload}>
           <Div>
             <Label htmlFor="place_visited">Name of Place Visited :</Label>
             <input
@@ -89,8 +107,8 @@ const UploadForm = () => {
               type="text"
               placeholder="Enter name of place"
               required
-              onChange={(ev) => handleChange(ev.target.value)}
-              value={formData.place_visited}
+              onChange={(ev) => handleChange(ev)}
+              value={formData.place_visited || ""}
             />
           </Div>
 
@@ -99,17 +117,18 @@ const UploadForm = () => {
             <TextArea
               placeholder=""
               name="experience"
-              onChange={(ev) => handleChange(ev.target.value)}
-              value={formData.experience}
+              onChange={(ev) => handleChange(ev)}
+              value={formData.experience || ""}
             />
           </Div>
 
           <h3>Upload Image</h3>
           <Input
             type="file"
-            name="image"
-            onChange={(e) => handleFileInput(e)}
-            value={fileInput} //?formData
+            name="photoUrl"
+            onChange={(ev) => handleFileInput(ev)}
+            value={fileInput || ""}
+            //value={formData.photoUrl}
           />
 
           {previewSource && (
@@ -120,10 +139,13 @@ const UploadForm = () => {
             />
           )}
           <SubmitDiv>
-            <button type="submit">Submit Review</button>
+            <button type="submit">Upload Image</button>
             {/* Show success message on submit */}
           </SubmitDiv>
         </Form>
+
+        <button onClick={handleReviewSubmit}>Submit Review</button>
+        {/* onclick - post review - endpoint-req.body should contain formData */}
 
         <div>
           <p>Reviews and Images shared by Members</p>
