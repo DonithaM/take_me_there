@@ -31,6 +31,13 @@ const signup = async (req, res) => {
       username: req.body.username,
       password: hashedPassword,
       email: req.body.email,
+      reviews: [],
+      // reviews: [
+      //   {desc:...,
+      //     url:....
+      //   namePlace: ...},
+      //   {}
+      // ], //update
     };
 
     const result = await db.collection("users").insertOne(user);
@@ -53,10 +60,10 @@ const login = async (req, res) => {
   const db = client.db("Final_Project");
   console.log("connected!");
 
-  console.log("REQUEST", req.body);
+  //console.log("REQUEST", req.body);
   const username = req.body.username;
   const password = req.body.password; //check if req.body password is equal to password in the database
-  console.log(password);
+  //console.log(password);
   try {
     const result = await db.collection("users").findOne({ username });
     // const test = await db.collection("users").find().toArray();

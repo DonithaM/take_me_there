@@ -10,7 +10,7 @@ const Album = () => {
     try {
       const res = await fetch("/getImages");
       const data = await res.json();
-      console.log(data);
+      //console.log(data);
       setImageIds(data);
     } catch (error) {
       console.log(error);
@@ -29,13 +29,18 @@ const Album = () => {
       {imageIds &&
         imageIds.map((image, index) => {
           return (
-            <Image
-              key={index}
-              cloudName="djxqiq1y3"
-              publicId={image}
-              width="300"
-              crop="scale"
-            />
+            <div key={index}>
+              <Image
+                key={index}
+                cloudName="djxqiq1y3"
+                publicId={image}
+                width="300"
+                crop="scale"
+              />
+              <div>
+                <h4>Reviews</h4>
+              </div>
+            </div>
           );
 
           //   <CloudinaryContext cloudName="djxqiq1y3">
