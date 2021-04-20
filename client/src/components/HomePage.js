@@ -1,7 +1,14 @@
 import React from "react";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
 
 const HomePage = () => {
+  const history = useHistory();
+
+  const handleSubmit = (ev) => {
+    ev.preventDefault();
+    history.push("/map");
+  };
   return (
     <>
       <Wrapper></Wrapper>
@@ -12,7 +19,7 @@ const HomePage = () => {
           in Toronto's most popular spots
         </p>
         <BtnWrapper>
-          <Button>TAKE ME THERE</Button>
+          <Button onClick={handleSubmit}>TAKE ME THERE</Button>
         </BtnWrapper>
       </Content>
     </>
@@ -24,24 +31,20 @@ const Wrapper = styled.div`
   height: 100vh;
   background-size: cover;
   background-position: center;
-  filter: blur(2px);
+  filter: blur(3px);
   -webkit-filter: blur(2px);
 `;
 
 const Content = styled.div`
-  /* display: flex;
-  justify-content: center;
-   */
-
   display: flex;
   flex-direction: column;
   justify-content: center;
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 2;
-  color: #ffcc00;
+  color: var(--orange-shade);
 `;
 
 const H1 = styled.h1`
@@ -49,7 +52,22 @@ const H1 = styled.h1`
 `;
 
 const Button = styled.button`
-  width: 200px;
+  width: auto;
+  margin-top: 30px;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  color: white;
+  font-weight: bold;
+  background: var(--orange-shade);
+  background: linear-gradient(
+    180deg,
+    rgba(251, 155, 31, 1) 20%,
+    rgba(255, 186, 8, 1) 73%
+  );
+  cursor: pointer;
+  -webkit-box-shadow: 0px -1px 14px 6px rgba(252, 163, 17, 0.56);
+  box-shadow: 0px -1px 14px 6px rgba(252, 163, 17, 0.56);
 `;
 
 const BtnWrapper = styled.div`

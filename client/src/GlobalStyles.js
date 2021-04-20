@@ -6,6 +6,9 @@ export default createGlobalStyle`
       --primary-color: #e7cfff;
       --secondary-color: #fff;
       --tertiary-color: #8418ba;
+
+      --orange-shade: #fca311;
+      --red-shade: #d00000;
       /* --primary-color: #30139c;
       --secondary-color: #fff;
       --tertiary-color: #744fff; //light purple

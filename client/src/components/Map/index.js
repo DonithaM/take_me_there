@@ -14,7 +14,7 @@ const libraries = ["places"];
 
 const mapContainerStyle = {
   //dimensions of the map
-  width: "98vw",
+  width: "100vw",
   height: "95vh",
   screenLeft: 10,
 };
@@ -66,6 +66,7 @@ const Map = () => {
 
   return (
     <Wrapper>
+      <Button>See Reviews</Button>
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
         zoom={15}
@@ -152,6 +153,9 @@ const Map = () => {
 
 const Wrapper = styled.div`
   margin: 0;
+  position: relative;
 `;
+
+const Button = styled.button``;
 
 export default Map;
