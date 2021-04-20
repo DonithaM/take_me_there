@@ -1,12 +1,15 @@
-// import React, {useState, useContext, createContext} from "react";
-// import usePersistedState from "./hooks/usePersistedState";
+import React, { useState, useContext, createContext, useEffect } from "react";
+import usePersistedState from "./hooks/usePersistedState";
 
-// export const userContext = createContext(null);
+export const userContext = createContext(null);
 
-// export const UserProvider = ({children}) =>{
-//     const [userInfo, setUserInfo] = usePersistedState();
+export const UserProvider = ({ children }) => {
+  const [userInfo, setUserInfo] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-//     return(
-//         <userContext.Provider value={{}}>{children}</userContext.Provider>
-//     )
-// }
+  useEffect(() => {
+    //fetch
+  }, []);
+
+  return <userContext.Provider value={{}}>{children}</userContext.Provider>;
+};

@@ -6,7 +6,7 @@ import Input from "../SignUp/Input";
 import ErrorMsg from "../ErrorMsg";
 
 const LoginForm = () => {
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({}); //user info
   const [subStatus, setSubStatus] = useState("idle");
   const [errMessage, setErrMessage] = useState("");
   const history = useHistory();
