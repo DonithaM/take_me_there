@@ -13,7 +13,7 @@ const {
   getNearbyMuseums,
   getNearbyNightClubs,
 } = require("./handlers/Businesshandlers");
-const { postUserReviews } = require("./handlers/Formhandlers");
+const { postUserReviews, getAllReviews } = require("./handlers/Formhandlers");
 const { cloudinary } = require("./utils/cloudinary");
 
 const PORT = 4000;
@@ -71,7 +71,7 @@ express()
       const uploadedResponse = await cloudinary.uploader.upload(fileStr, {
         upload_preset: "dev_setups",
       });
-      console.log("upload response :", uploadedResponse);
+      //console.log("upload response :", uploadedResponse);
       //res.json({ msg: "Upload Successful" });
       res.status(201).json({
         status: 201,
@@ -86,5 +86,6 @@ express()
   })
 
   .post("/submitReview", postUserReviews)
+  .get("/getAllReviews", getAllReviews)
 
   .listen(PORT, () => console.info(`Listening on port ${PORT}`));

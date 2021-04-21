@@ -97,6 +97,8 @@ const login = async (req, res) => {
   } catch (error) {
     res.status(500).send({ status: 500, message: error.message });
   }
+
+  client.close();
 };
 
 module.exports = {

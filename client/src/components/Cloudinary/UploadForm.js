@@ -1,17 +1,23 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
 
 const UploadForm = () => {
-  //form
+  const history = useHistory();
+
   const [formData, setFormData] = useState({
     id: localStorage.getItem("user_id"),
+    //add username in local storage for it to show up in the reviews.
   });
   //images
   const [fileInput, setFileInput] = useState("");
   const [selectedFile, setSelectedFile] = useState("");
   const [previewSource, setPreviewSource] = useState();
-  //for loading images
-  //const [images, setImages] = useState();
+
+  const handleSubmit = (ev) => {
+    ev.preventDefault();
+    history.push("/album");
+  };
 
   const handleChange = (ev) => {
     setFormData({ ...formData, [ev.target.name]: ev.target.value });
@@ -80,7 +86,7 @@ const UploadForm = () => {
     try {
       fetch("/submitReview", {
         method: "POST",
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, timeStamp: new Date() }),
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -128,7 +134,7 @@ const UploadForm = () => {
             name="photoUrl"
             onChange={(ev) => handleFileInput(ev)}
             value={fileInput || ""}
-            //value={formData.photoUrl}
+            // value={formData.photoUrl || ""}
           />
 
           {previewSource && (
@@ -150,7 +156,7 @@ const UploadForm = () => {
         <div>
           <p>Reviews and Images shared by Members</p>
           {/* button clicked - takes to Album page - for now, app.js route*/}
-          <button>View Album</button>
+          <button onClick={handleSubmit}>View Album</button>
         </div>
       </Wrapper>
     </Main>
@@ -177,7 +183,7 @@ const Wrapper = styled.div`
 `;
 
 const H1 = styled.h1`
-  color: var(--tertiary-color);
+  color: var(--orange-shade);
 `;
 
 const Form = styled.form`

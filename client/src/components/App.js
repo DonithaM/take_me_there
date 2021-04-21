@@ -14,22 +14,11 @@ import UploadForm from "./Cloudinary/UploadForm";
 import Album from "./Cloudinary/Album";
 
 const App = () => {
-  const [bacon, setBacon] = useState(null);
-
-  // useEffect(() => {
-  //   fetch("/getImages")
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       console.log(data);
-  //       setBacon(data);
-  //     });
-  // }, []);
-
   return (
     <BrowserRouter>
       <GlobalStyles />
       <Wrapper>
-        <Header />
+        {/* <Header /> */}
         <Switch>
           <Route exact path="/">
             <HomePage />
@@ -56,7 +45,7 @@ const App = () => {
 };
 
 const Wrapper = styled.div`
-  background: var(--primary-color);
+  background: var(--light-orange);
   height: 100%;
 `;
 
