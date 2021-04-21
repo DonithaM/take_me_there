@@ -173,6 +173,7 @@ const Button = styled.button`
   border-radius: 8px;
   border: none;
   font-size: 17px;
+  cursor: pointer;
 `;
 
 export default Map;

@@ -16,16 +16,16 @@ const Album = () => {
     history.push("/upload");
   };
 
-  const loadImages = async () => {
-    try {
-      const res = await fetch("/getImages");
-      const data = await res.json();
-      //console.log(data);
-      setImageIds(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const loadImages = async () => {
+  //   try {
+  //     const res = await fetch("/getImages");
+  //     const data = await res.json();
+  //     //console.log(data);
+  //     setImageIds(data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   const loadReviews = () => {
     try {
@@ -41,23 +41,25 @@ const Album = () => {
   };
 
   useEffect(() => {
-    loadImages();
+    //loadImages();
     loadReviews();
   }, []);
 
+  console.log(reviewData);
+
   return (
     <Wrapper>
-      <h2>Album of Reviews and Experiences</h2>
+      <H2>Album of Reviews and Experiences</H2>
       <BtnWrapper>
         <Button handleSubmit={handleSubmit} text={"Create Review"} />
       </BtnWrapper>
 
       <Content>
-        {imageIds &&
+        {/* {imageIds &&
           imageIds.map((image, index) => {
             return (
               <Review key={index}>
-                <Image
+                <ImageTag
                   key={index}
                   cloudName="djxqiq1y3"
                   publicId={image}
@@ -65,10 +67,28 @@ const Album = () => {
                   height="300"
                   crop="scale"
                 />
+
                 <div>
                   <h4>Reviews</h4>
                   {reviewData && <p>{reviewData[0].place_visited}</p>}
                 </div>
+              </Review>
+            );
+          })} */}
+
+        {reviewData &&
+          reviewData.map((item, index) => {
+            const dateStr = item.timeStamp.slice(0, 10);
+            const timeStr = item.timeStamp.slice(11, 19);
+            return (
+              <Review key={index}>
+                <Img src={item.photoUrl} />
+                <h2>Reviews</h2>
+                <p>Name of place/event : {item.place_visited}</p>
+                <p>Experience: {item.experience}</p>
+                <p>
+                  Date posted: {dateStr}, at {timeStr}
+                </p>
               </Review>
             );
           })}
@@ -81,25 +101,32 @@ const Wrapper = styled.div`
   padding-bottom: 180px;
 `;
 
+const H2 = styled.h2`
+  display: flex;
+  justify-content: center;
+  padding: 30px;
+`;
+
 const Content = styled.div`
   display: flex;
   flex-wrap: wrap;
-  /* flex-direction: column; */
-  /* justify-content: center;
-  align-items: center; */
+  justify-content: space-evenly;
 `;
 
 const Review = styled.div`
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  /* 
-  flex-wrap: wrap; */
+  margin-top: 30px;
 `;
 
 const BtnWrapper = styled.div`
   display: flex;
   justify-content: center;
+`;
+
+const Img = styled.img`
+  width: 350px;
+  height: 300px;
+  border-radius: 8%;
+  box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
 `;
 
 export default Album;
