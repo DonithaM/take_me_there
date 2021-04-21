@@ -1,5 +1,5 @@
-//import { GoogleMap, withScriptjs, withGoogleMap } from "react-google-maps";
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import {
   GoogleMap,
@@ -28,6 +28,8 @@ const options = {
 };
 
 const Map = () => {
+  const history = useHistory();
+
   const [restaurantList, setRestaurantList] = useState([]);
   const [clubsList, setClubsList] = useState([]);
   const [selectedSpot, setSelectedSpot] = useState(null); //state for clicked marker
@@ -54,6 +56,11 @@ const Map = () => {
     //fetch others
   }, []);
 
+  const handleSubmit = (ev) => {
+    ev.preventDefault();
+    history.push("/album");
+  };
+
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries,
@@ -66,7 +73,7 @@ const Map = () => {
 
   return (
     <Wrapper>
-      <Button>See Reviews</Button>
+      <Button onClick={handleSubmit}>See Reviews</Button>
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
         zoom={15}
@@ -156,6 +163,16 @@ const Wrapper = styled.div`
   position: relative;
 `;
 
-const Button = styled.button``;
+const Button = styled.button`
+  position: absolute;
+  z-index: 2;
+  top: 0.65rem;
+  right: 5rem;
+  padding: 12px;
+  width: auto;
+  border-radius: 8px;
+  border: none;
+  font-size: 17px;
+`;
 
 export default Map;

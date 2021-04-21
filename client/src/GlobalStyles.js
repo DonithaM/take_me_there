@@ -7,12 +7,10 @@ export default createGlobalStyle`
       --secondary-color: #fff;
       --tertiary-color: #8418ba;
 
-      --orange-shade: #fca311;
+      --orange-shade: #f48c06;
       --red-shade: #d00000;
-      /* --primary-color: #30139c;
-      --secondary-color: #fff;
-      --tertiary-color: #744fff; //light purple
-      --background-color: #F0F2F5; //light gray */
+      --light-orange: #ffe3b5;
+      --dark-orange: #fb8500;
     }
 html, body, div, span, applet, object, iframe,
   h1, h2, h3, h4, h5, h6, p, blockquote, pre,
