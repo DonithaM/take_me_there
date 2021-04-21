@@ -84,9 +84,15 @@ const UploadForm = () => {
   const handleReviewSubmit = (ev) => {
     ev.preventDefault();
     try {
+      //const ts = new Date();
+
       fetch("/submitReview", {
         method: "POST",
-        body: JSON.stringify({ ...formData, timeStamp: new Date() }),
+        body: JSON.stringify({
+          ...formData,
+          timeStamp: new Date().toDateString(),
+        }),
+        // body: JSON.stringify({ ...formData, timeStamp: new Date() }),
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -134,7 +140,6 @@ const UploadForm = () => {
             name="photoUrl"
             onChange={(ev) => handleFileInput(ev)}
             value={fileInput || ""}
-            // value={formData.photoUrl || ""}
           />
 
           {previewSource && (

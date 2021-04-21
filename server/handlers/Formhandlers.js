@@ -60,15 +60,20 @@ const getAllReviews = async (req, res) => {
     // 3. .sort based on time stamp ([earliest > latest])
     //4. pass this array as response to FE
 
-    const allReviews = allusers.map((user, index) => {
-      //console.log(`user revs: ${index}`, user.reviews);
-
-      //console.log("second user's", user.reviews[1]);
-      //const allReviews = user.reviews[0].concat(user.reviews[1]);
-      //console.log("combined revs", allReviews);
-      return user.reviews;
-    });
+    const allReviews = allusers[0].reviews.concat(allusers[1].reviews);
     console.log(allReviews);
+    // const allReviews = allusers.map((user, index) => {
+    //   //console.log(`user revs: ${index}`, user.reviews);
+    //   // const rev1 = [...user.reviews[0]];
+    //   const rev1 = user.reviews[0];
+    //   const rev2 = user.reviews[1];
+    //   console.log("rev1", rev1);
+    //   console.log("rev2", rev2);
+    //   const allReviews = rev1.concat(rev2);
+    //   console.log("combined revs", allReviews);
+    //   return user.reviews;
+    // });
+    //console.log(allReviews);
     res.status(200).json({ status: 200, data: allReviews });
   } catch (err) {
     res.status(500).json({ status: 500, data: req.body, message: err.message });
