@@ -49,7 +49,7 @@ const Album = () => {
 
   return (
     <Wrapper>
-      <H2>Album of Reviews and Experiences</H2>
+      <H1>Album of Reviews and Experiences</H1>
       <BtnWrapper>
         <Button handleSubmit={handleSubmit} text={"Create Review"} />
       </BtnWrapper>
@@ -82,13 +82,17 @@ const Album = () => {
             const timeStr = item.timeStamp.slice(11, 19);
             return (
               <Review key={index}>
-                <Img src={item.photoUrl} />
-                <h2>Reviews</h2>
-                <p>Name of place/event : {item.place_visited}</p>
-                <p>Experience: {item.experience}</p>
-                <p>
+                <ImgWrapper>
+                  <Img src={item.photoUrl} />
+                </ImgWrapper>
+
+                <H2>Reviews</H2>
+
+                <Event>Name of place/event : {item.place_visited}</Event>
+                <Event>Experience: {item.experience}</Event>
+                <Event>
                   Date posted: {dateStr}, at {timeStr}
-                </p>
+                </Event>
               </Review>
             );
           })}
@@ -98,13 +102,23 @@ const Album = () => {
 };
 
 const Wrapper = styled.div`
+  padding-top: 25px;
   padding-bottom: 180px;
+`;
+
+const H1 = styled.h1`
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  color: var(--text-orange);
+  /* text-shadow: 2px 1px 11px rgba(244, 140, 6, 0.46); */
 `;
 
 const H2 = styled.h2`
   display: flex;
   justify-content: center;
-  padding: 30px;
+  padding: 10px;
+  color: var(--text-orange);
 `;
 
 const Content = styled.div`
@@ -117,6 +131,12 @@ const Review = styled.div`
   margin-top: 30px;
 `;
 
+const Event = styled.p`
+  display: flex;
+  justify-content: center;
+  padding: 3px;
+`;
+
 const BtnWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -126,7 +146,12 @@ const Img = styled.img`
   width: 350px;
   height: 300px;
   border-radius: 8%;
-  box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+`;
+
+const ImgWrapper = styled.div`
+  padding: 12px 10px 9px 10px;
+  box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 8%;
 `;
 
 export default Album;

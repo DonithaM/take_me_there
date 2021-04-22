@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
+import Button from "./Button";
 
 const HomePage = () => {
   const history = useHistory();
@@ -14,12 +15,12 @@ const HomePage = () => {
       <Wrapper></Wrapper>
       <Content>
         <H1>Toronto's Top Hangout Spots</H1>
-        <p>
+        <P>
           Explore top restaurants, cafes, bars, movies and tourist attractions
           in Toronto's most popular spots
-        </p>
+        </P>
         <BtnWrapper>
-          <Button onClick={handleSubmit}>TAKE ME THERE</Button>
+          <Button handleSubmit={handleSubmit} text={"TAKE ME THERE"} />
         </BtnWrapper>
       </Content>
     </>
@@ -27,7 +28,8 @@ const HomePage = () => {
 };
 
 const Wrapper = styled.div`
-  background-image: url("https://images.unsplash.com/photo-1579027989536-b7b1f875659b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80");
+  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    url("https://images.unsplash.com/photo-1579027989536-b7b1f875659b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80");
   height: 100vh;
   background-size: cover;
   background-position: center;
@@ -44,33 +46,25 @@ const Content = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 2;
-  color: var(--orange-shade);
+  //color: var(--orange-shade);
 `;
 
 const H1 = styled.h1`
+  display: flex;
+  justify-content: center;
   padding: 10px 0;
+  color: #fff;
+  text-shadow: 2px 2px 9px rgba(206, 89, 55, 0.85);
+  font-size: 40px;
 `;
 
-const Button = styled.button`
-  width: auto;
-  margin-top: 30px;
-  padding: 10px;
-  border-radius: 10px;
-  border: none;
-  color: white;
-  font-weight: bold;
-  background: var(--orange-shade);
-  background: linear-gradient(
-    180deg,
-    rgba(251, 155, 31, 1) 20%,
-    rgba(255, 186, 8, 1) 73%
-  );
-  cursor: pointer;
-  -webkit-box-shadow: 0px -1px 14px 6px rgba(252, 163, 17, 0.56);
-  box-shadow: 0px -1px 14px 6px rgba(252, 163, 17, 0.56);
+const P = styled.p`
+  color: #fff;
+  text-shadow: 2px 2px 9px rgba(206, 89, 55, 0.85);
 `;
 
 const BtnWrapper = styled.div`
+  margin-top: 25px;
   display: flex;
   justify-content: center;
 `;

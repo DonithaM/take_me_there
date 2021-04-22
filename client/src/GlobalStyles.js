@@ -8,10 +8,9 @@ export default createGlobalStyle`
       --tertiary-color: #8418ba;
 
       --orange-shade: #f48c06;
-      --red-shade: #d00000;
       --light-orange: #ffe3b5;
       --dark-orange: #fb8500;
-      --text-orange: #ff8000;
+      --text-orange: #d00000;
     }
 html, body, div, span, applet, object, iframe,
   h1, h2, h3, h4, h5, h6, p, blockquote, pre,
