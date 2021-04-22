@@ -9,6 +9,7 @@ import {
 } from "@react-google-maps/api";
 import { BiRestaurant } from "react-icons/bi";
 import MapStyles from "./MapStyles";
+import Button from "../Button";
 
 const libraries = ["places"];
 
@@ -30,10 +31,9 @@ const options = {
 const Map = () => {
   const history = useHistory();
 
-  const [restaurantList, setRestaurantList] = useState([]);
-  const [clubsList, setClubsList] = useState([]);
   const [selectedSpot, setSelectedSpot] = useState(null); //state for clicked marker
 
+  const [restaurantList, setRestaurantList] = useState([]);
   useEffect(() => {
     //get restaurant data from BE
     fetch("/getRestaurants")
@@ -43,7 +43,10 @@ const Map = () => {
       .then((jsonData) => {
         setRestaurantList(jsonData.data);
       });
+  }, []);
 
+  const [clubsList, setClubsList] = useState([]);
+  useEffect(() => {
     fetch("/getNightClubs") //Clubs or bars
       .then((res) => {
         return res.json();
@@ -52,8 +55,29 @@ const Map = () => {
         console.log("night clubs", jsonData);
         setClubsList(jsonData.data);
       });
+  }, []);
 
-    //fetch others
+  const [touristAttractions, setTouristAttractions] = useState([]);
+  useEffect(() => {
+    fetch("/getTouristAttractions")
+      .then((res) => {
+        return res.json();
+      })
+      .then((jsonData) => {
+        console.log("tourist attractions :", jsonData);
+        setTouristAttractions(jsonData.data);
+      });
+  }, []);
+
+  const [museumsList, setMuseumsList] = useState([]);
+  useEffect(() => {
+    fetch("/getMuseums")
+      .then((res) => {
+        return res.json();
+      })
+      .then((jsonData) => {
+        setMuseumsList(jsonData.data);
+      });
   }, []);
 
   const handleSubmit = (ev) => {
@@ -73,7 +97,11 @@ const Map = () => {
 
   return (
     <Wrapper>
-      <Button onClick={handleSubmit}>See Reviews</Button>
+      <header>Hello</header>
+      <BtnWrapper>
+        <Button handleSubmit={handleSubmit} text={"See Reviews"} />
+      </BtnWrapper>
+
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
         zoom={15}
@@ -84,46 +112,81 @@ const Map = () => {
         {restaurantList &&
           restaurantList.map((restaurant) => {
             return (
-              <>
-                <Marker
-                  key={restaurant.place_id}
-                  position={{
-                    lat: restaurant.geometry.location.lat,
-                    lng: restaurant.geometry.location.lng,
-                  }}
-                  onClick={() => {
-                    setSelectedSpot(restaurant);
-                  }}
-                  icon={{
-                    url: "/restaurant.svg",
-                    scaledSize: new window.google.maps.Size(25, 25),
-                    color: "black",
-                  }}
-                />
-              </>
+              <Marker
+                key={restaurant.place_id}
+                position={{
+                  lat: restaurant.geometry.location.lat,
+                  lng: restaurant.geometry.location.lng,
+                }}
+                onClick={() => {
+                  setSelectedSpot(restaurant);
+                }}
+                icon={{
+                  url: "/restaurant.svg",
+                  scaledSize: new window.google.maps.Size(26, 26),
+                }}
+              />
             );
           })}
 
         {clubsList &&
-          clubsList.map((club) => {
+          clubsList.map((club, index) => {
             return (
-              <>
-                <Marker
-                  key={club.place_id}
-                  position={{
-                    lat: club.geometry.location.lat,
-                    lng: club.geometry.location.lng,
-                  }}
-                  onClick={() => {
-                    setSelectedSpot(club);
-                  }}
-                  icon={{
-                    url: "/night_club.svg",
-                    scaledSize: new window.google.maps.Size(24, 24),
-                    color: "black",
-                  }}
-                />
-              </>
+              <Marker
+                key={index}
+                position={{
+                  lat: club.geometry.location.lat,
+                  lng: club.geometry.location.lng,
+                }}
+                onClick={() => {
+                  setSelectedSpot(club);
+                }}
+                icon={{
+                  url: "/night_club.svg",
+                  scaledSize: new window.google.maps.Size(24, 24),
+                }}
+              />
+            );
+          })}
+
+        {/* {touristAttractions &&
+          touristAttractions.map((site, index) => {
+            return (
+              <Marker
+                key={index}
+                position={{
+                  lat: site.geometry.location.lat,
+                  lng: site.geometry.location.lng,
+                }}
+                onClick={() => {
+                  setTouristAttractions(site);
+                }}
+                icon={{
+                  url: "/tourist.svg",
+                  scaledSize: new window.google.maps.Size(27, 27),
+                }}
+              />
+            );
+          })} */}
+
+        {museumsList &&
+          museumsList.map((museum, index) => {
+            return (
+              <Marker
+                key={index}
+                color="blue"
+                position={{
+                  lat: museum.geometry.location.lat,
+                  lng: museum.geometry.location.lng,
+                }}
+                onClick={() => {
+                  setSelectedSpot(museum);
+                }}
+                icon={{
+                  url: "/museum.svg",
+                  scaledSize: new window.google.maps.Size(25, 25),
+                }}
+              />
             );
           })}
         <Marker
@@ -140,16 +203,16 @@ const Map = () => {
             onCloseClick={() => {
               setSelectedSpot(null);
             }}
-            // url={{selectedSpot.photos[0].getUrl({maxWidth: 35, maxHeight: 35})}}
           >
             <div>
-              <h4>{selectedSpot.name}</h4>
+              <h4>
+                {selectedSpot.name} ({selectedSpot.types[0].split("_")})
+              </h4>
               <img src={selectedSpot.icon} />
-
+              <p>{selectedSpot.vicinity}</p>
               <p>Price level: {selectedSpot.price_level}/5</p>
               <p>Rating: {selectedSpot.rating}</p>
               {selectedSpot.opening_hours ? <p>Open Now</p> : <p>Closed :(</p>}
-              <p></p>
             </div>
           </InfoWindow>
         )}
@@ -163,17 +226,11 @@ const Wrapper = styled.div`
   position: relative;
 `;
 
-const Button = styled.button`
+const BtnWrapper = styled.div`
   position: absolute;
   z-index: 2;
-  top: 0.65rem;
+  top: 1.2rem;
   right: 5rem;
-  padding: 12px;
-  width: auto;
-  border-radius: 8px;
-  border: none;
-  font-size: 17px;
-  cursor: pointer;
 `;
 
 export default Map;

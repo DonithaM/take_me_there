@@ -10,7 +10,7 @@ const Btn = styled.button`
   width: auto;
   border-radius: 8px;
   border: none;
-  font-size: 17px;
+  font-size: 18px;
   background: var(--orange-shade);
   background: linear-gradient(
     180deg,
@@ -26,7 +26,7 @@ const Btn = styled.button`
   cursor: pointer;
 
   &:active {
-    transform: scale(0.98);
+    transform: scale(0.9);
   }
 `;
 
