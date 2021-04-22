@@ -9,7 +9,6 @@ import SignUpForm from "./SignUp";
 import LoginForm from "./Login";
 //import MapComponent from "./Map";
 import Map from "./Map";
-import Business from "./Map/Business";
 import UploadForm from "./Cloudinary/UploadForm";
 import Album from "./Cloudinary/Album";
 

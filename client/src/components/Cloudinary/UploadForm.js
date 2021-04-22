@@ -188,7 +188,7 @@ const Wrapper = styled.div`
 `;
 
 const H1 = styled.h1`
-  color: var(--orange-shade);
+  color: var(--text-orange);
 `;
 
 const Form = styled.form`

@@ -11,7 +11,6 @@ const Btn = styled.button`
   border-radius: 8px;
   border: none;
   font-size: 18px;
-  background: var(--orange-shade);
   background: linear-gradient(
     180deg,
     rgba(244, 140, 6, 1) 34%,

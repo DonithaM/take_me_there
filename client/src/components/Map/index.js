@@ -10,12 +10,13 @@ import {
 import { BiRestaurant } from "react-icons/bi";
 import MapStyles from "./MapStyles";
 import Button from "../Button";
+import Header from "../Header";
 
 const libraries = ["places"];
 
 const mapContainerStyle = {
   //dimensions of the map
-  width: "100vw",
+  width: "98.72vw",
   height: "95vh",
   screenLeft: 10,
 };
@@ -97,7 +98,7 @@ const Map = () => {
 
   return (
     <Wrapper>
-      <header>Hello</header>
+      <Header />
       <BtnWrapper>
         <Button handleSubmit={handleSubmit} text={"See Reviews"} />
       </BtnWrapper>
@@ -229,7 +230,7 @@ const Wrapper = styled.div`
 const BtnWrapper = styled.div`
   position: absolute;
   z-index: 2;
-  top: 1.2rem;
+  top: 3rem;
   right: 5rem;
 `;
 
