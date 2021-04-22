@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
+import Header from "../Header";
+import Button from "../Button";
 
 const UploadForm = () => {
   const history = useHistory();
@@ -13,6 +15,7 @@ const UploadForm = () => {
   const [fileInput, setFileInput] = useState("");
   const [selectedFile, setSelectedFile] = useState("");
   const [previewSource, setPreviewSource] = useState();
+  const [success, setSuccess] = useState("null");
 
   const handleSubmit = (ev) => {
     ev.preventDefault();
@@ -73,6 +76,7 @@ const UploadForm = () => {
           console.log("from inside fetch of Upload", data);
           console.log("data url", data.url);
           setFormData({ ...formData, photoUrl: data.url });
+          setSuccess("uploaded");
         });
       setFileInput("");
     } catch (error) {
@@ -84,8 +88,6 @@ const UploadForm = () => {
   const handleReviewSubmit = (ev) => {
     ev.preventDefault();
     try {
-      //const ts = new Date();
-
       fetch("/submitReview", {
         method: "POST",
         body: JSON.stringify({
@@ -101,6 +103,7 @@ const UploadForm = () => {
         .then((res) => res.json())
         .then((jsonData) => {
           console.log(jsonData);
+          setSuccess("submitted");
         });
     } catch (error) {
       console.log(error);
@@ -108,71 +111,107 @@ const UploadForm = () => {
   };
 
   return (
-    <Main>
-      <Wrapper>
-        <H1>Create Your Review</H1>
-        <Form onSubmit={handleImageUpload}>
-          <Div>
-            <Label htmlFor="place_visited">Name of Place Visited :</Label>
-            <input
-              name="place_visited"
-              type="text"
-              placeholder="Enter name of place"
-              required
-              onChange={(ev) => handleChange(ev)}
-              value={formData.place_visited || ""}
-            />
-          </Div>
+    <>
+      <Header />
+      <Main>
+        <Wrapper>
+          <H1>Create Your Review</H1>
+          <Form onSubmit={handleImageUpload}>
+            <Div>
+              <Label htmlFor="place_visited">Name of Place Visited :</Label>
+              <input
+                style={InputStyles}
+                name="place_visited"
+                type="text"
+                placeholder="Enter name of place"
+                required
+                onChange={(ev) => handleChange(ev)}
+                value={formData.place_visited || ""}
+              />
+            </Div>
 
-          <Div>
-            <Label htmlFor="experience">Share your experience :</Label>
-            <TextArea
-              placeholder=""
-              name="experience"
-              onChange={(ev) => handleChange(ev)}
-              value={formData.experience || ""}
-            />
-          </Div>
+            <Div>
+              <Label htmlFor="experience">Share your experience :</Label>
+              <TextArea
+                // style={InputStyles}
+                placeholder=""
+                name="experience"
+                onChange={(ev) => handleChange(ev)}
+                value={formData.experience || ""}
+              />
+            </Div>
 
-          <h3>Upload Image</h3>
-          <Input
-            type="file"
-            name="photoUrl"
-            onChange={(ev) => handleFileInput(ev)}
-            value={fileInput || ""}
-          />
-
-          {previewSource && (
-            <img
-              src={previewSource}
-              alt="chosen-image"
-              style={{ height: "300px" }}
+            <h3>Upload Image</h3>
+            <Input
+              type="file"
+              name="photoUrl"
+              onChange={(ev) => handleFileInput(ev)}
+              value={fileInput || ""}
             />
-          )}
+
+            {previewSource && (
+              <img
+                src={previewSource}
+                alt="chosen-image"
+                style={{ height: "300px" }}
+              />
+            )}
+            <SubmitDiv>
+              <button type="submit">Upload Image</button>
+              {/* Show success message on submit */}
+              {success === "uploaded" ? (
+                <SuccessMsg>"Uploaded Successfully"</SuccessMsg>
+              ) : (
+                <></>
+              )}
+            </SubmitDiv>
+          </Form>
+
           <SubmitDiv>
-            <button type="submit">Upload Image</button>
-            {/* Show success message on submit */}
+            <BtnWrapper>
+              <Button
+                handleSubmit={handleReviewSubmit}
+                text={"Submit Review"}
+              />
+            </BtnWrapper>
+
+            {success === "submitted" ? (
+              <SuccessMsg>"Review submitted Successfully!"</SuccessMsg>
+            ) : (
+              <></>
+            )}
           </SubmitDiv>
-        </Form>
 
-        <button onClick={handleReviewSubmit}>Submit Review</button>
-        {/* onclick - post review - endpoint-req.body should contain formData */}
-
-        <div>
-          <p>Reviews and Images shared by Members</p>
-          {/* button clicked - takes to Album page - for now, app.js route*/}
-          <button onClick={handleSubmit}>View Album</button>
-        </div>
-      </Wrapper>
-    </Main>
+          <SeeReview>
+            <p>See Reviews and Images shared by Members</p>
+            <BtnWrapper>
+              <Button handleSubmit={handleSubmit} text={"View Album"} />
+            </BtnWrapper>
+          </SeeReview>
+        </Wrapper>
+      </Main>
+    </>
   );
+};
+
+const InputStyles = {
+  height: "30px",
+  width: "220px",
+  border: "none",
+  background: "#f0f0f0",
+  borderRadius: "5px",
+  outline: "none",
+  fontSize: "17px",
+  paddingLeft: "10px",
 };
 
 const Main = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-bottom: 150px;
+  padding-bottom: 160px;
+  padding-top: 40px;
+  height: auto;
 `;
 
 const Wrapper = styled.div`
@@ -182,9 +221,8 @@ const Wrapper = styled.div`
   align-items: center;
   width: fit-content;
   border-radius: 15px;
-  background: var(--secondary-color);
-  margin-top: 60px;
-  padding: 40px;
+  background: white;
+  padding: 30px 40px 40px 40px;
 `;
 
 const H1 = styled.h1`
@@ -205,10 +243,17 @@ const Label = styled.label`
 
 const Div = styled.div`
   margin-bottom: 10px;
+  vertical-align: middle;
 `;
 
 const TextArea = styled.textarea`
-  width: 165px;
+  width: 220px;
+  border: none;
+  background: #f0f0f0;
+  border-radius: 5px;
+  outline: none;
+  font-size: 17px;
+  padding-left: 10px;
 `;
 
 const Input = styled.input`
@@ -218,7 +263,21 @@ const Input = styled.input`
 `;
 
 const SubmitDiv = styled.div`
-  padding: 20px 0;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+const SuccessMsg = styled.div`
+  margin-top: 10px;
+  color: green;
+`;
+const SeeReview = styled.div`
+  margin-top: 10px;
+`;
+
+const BtnWrapper = styled.div`
   display: flex;
   justify-content: center;
 `;

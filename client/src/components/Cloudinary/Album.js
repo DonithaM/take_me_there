@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Image } from "cloudinary-react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
+import Header from "../Header";
 
 import Button from "../Button";
 
@@ -48,14 +49,16 @@ const Album = () => {
   console.log(reviewData);
 
   return (
-    <Wrapper>
-      <H1>Album of Reviews and Experiences</H1>
-      <BtnWrapper>
-        <Button handleSubmit={handleSubmit} text={"Create Review"} />
-      </BtnWrapper>
+    <>
+      <Header />
+      <Wrapper>
+        <H1>Album of Reviews and Experiences</H1>
+        <BtnWrapper>
+          <Button handleSubmit={handleSubmit} text={"Create Review"} />
+        </BtnWrapper>
 
-      <Content>
-        {/* {imageIds &&
+        <Content>
+          {/* {imageIds &&
           imageIds.map((image, index) => {
             return (
               <Review key={index}>
@@ -76,34 +79,41 @@ const Album = () => {
             );
           })} */}
 
-        {reviewData &&
-          reviewData.map((item, index) => {
-            const dateStr = item.timeStamp.slice(0, 10);
-            const timeStr = item.timeStamp.slice(11, 19);
-            return (
-              <Review key={index}>
-                <ImgWrapper>
-                  <Img src={item.photoUrl} />
-                </ImgWrapper>
+          {reviewData &&
+            reviewData.map((item, index) => {
+              const dateStr = item.timeStamp.slice(0, 10);
+              const timeStr = item.timeStamp.slice(11, 19);
+              return (
+                <Review key={index}>
+                  <ImgWrapper>
+                    <Img src={item.photoUrl} />
+                  </ImgWrapper>
 
-                <H2>Reviews</H2>
+                  <H2>Reviews</H2>
 
-                <Event>Name of place/event : {item.place_visited}</Event>
-                <Event>Experience: {item.experience}</Event>
-                <Event>
-                  Date posted: {dateStr}, at {timeStr}
-                </Event>
-              </Review>
-            );
-          })}
-      </Content>
-    </Wrapper>
+                  <Event>Name of place/event : {item.place_visited}</Event>
+                  <Event>Experience: {item.experience}</Event>
+                  <Event>
+                    Date posted: {dateStr}, at {timeStr}
+                  </Event>
+                </Review>
+              );
+            })}
+        </Content>
+      </Wrapper>
+    </>
   );
 };
 
 const Wrapper = styled.div`
   padding-top: 25px;
   padding-bottom: 180px;
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.8),
+      rgba(255, 255, 255, 0.8)
+    ),
+    url("https://images.unsplash.com/photo-1543857778-c4a1a3e0b2eb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=653&q=80");
+  background-size: cover;
 `;
 
 const H1 = styled.h1`
@@ -150,7 +160,7 @@ const Img = styled.img`
 
 const ImgWrapper = styled.div`
   padding: 12px 10px 9px 10px;
-  box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.6);
   border-radius: 8%;
 `;
 

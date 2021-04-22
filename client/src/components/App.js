@@ -3,11 +3,9 @@ import styled from "styled-components";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import GlobalStyles from "../GlobalStyles";
-import Header from "./Header";
 import HomePage from "./HomePage";
 import SignUpForm from "./SignUp";
 import LoginForm from "./Login";
-//import MapComponent from "./Map";
 import Map from "./Map";
 import UploadForm from "./Cloudinary/UploadForm";
 import Album from "./Cloudinary/Album";
@@ -17,7 +15,6 @@ const App = () => {
     <BrowserRouter>
       <GlobalStyles />
       <Wrapper>
-        {/* <Header /> */}
         <Switch>
           <Route exact path="/">
             <HomePage />

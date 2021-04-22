@@ -1,25 +1,53 @@
 import React from "react";
 import styled from "styled-components";
 import { HiLocationMarker } from "react-icons/hi";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
     <Wrapper>
-      <Logo>
-        <HiLocationMarker />
-      </Logo>
-
-      <Title>Take Me There</Title>
+      <Div>
+        <Logo>
+          <HiLocationMarker />
+        </Logo>
+        <Title>Take Me There</Title>
+      </Div>
+      <NavItems>
+        <Link to="/signup">
+          <NavBtn>Sign up</NavBtn>
+        </Link>
+        <Link to="/login">
+          <NavBtn>Login</NavBtn>
+        </Link>
+      </NavItems>
     </Wrapper>
   );
 };
 
 const Wrapper = styled.header`
   display: flex;
+  justify-content: space-between;
   height: 50px;
-  background: #262626;
-  border-bottom: 3px solid var(--dark-orange);
+  background: #1f1f1f;
+  border-bottom: 2.5px solid var(--dark-orange);
 `;
+
+const NavBtn = styled.button`
+  color: var(--orange-shade);
+  font-size: 17px;
+  padding-top: 14px;
+  background: #1f1f1f;
+  border: none;
+  cursor: pointer;
+  padding-right: 30px;
+  outline: none;
+`;
+
+const Div = styled.div`
+  display: flex;
+`;
+
+const NavItems = styled.div``;
 
 const Logo = styled.div`
   color: var(--orange-shade);

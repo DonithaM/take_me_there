@@ -16,10 +16,10 @@ const HomePage = () => {
       <Header />
       <Wrapper></Wrapper>
       <Content>
-        <H1>Toronto's Top Hangout Spots</H1>
+        <H1>Toronto's Hangout Spots</H1>
         <P>
-          Explore top restaurants, cafes, bars, movies and tourist attractions
-          in Toronto's most popular spots
+          Explore top restaurants, cafes, bars, and other attractions in
+          Toronto's most popular spots
         </P>
         <BtnWrapper>
           <Button handleSubmit={handleSubmit} text={"TAKE ME THERE"} />
@@ -32,7 +32,7 @@ const HomePage = () => {
 const Wrapper = styled.div`
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
     url("https://images.unsplash.com/photo-1579027989536-b7b1f875659b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80");
-  height: 92vh;
+  height: 95vh;
   background-size: cover;
   background-position: center;
   filter: blur(1px);
@@ -62,6 +62,7 @@ const H1 = styled.h1`
 
 const P = styled.p`
   color: #fff;
+  font-size: 17px;
   text-shadow: 2px 2px 9px rgba(206, 89, 55, 0.85);
 `;
 
