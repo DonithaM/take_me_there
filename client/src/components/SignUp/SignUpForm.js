@@ -2,6 +2,8 @@ import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import Input from "./Input";
+import Button from "../Button";
+import Header from "../Header";
 
 const initialState = {
   username: "",
@@ -37,28 +39,29 @@ const SignUpForm = () => {
 
   const handleSubmit = (ev) => {
     ev.preventDefault();
-
-    //email validation
     const emailParts = formData.email.split("@");
     console.log(emailParts);
-    if (
+    //check if username is atleast 3 characters
+    if (formData.username.length < 3) {
+      errorMsg.current.style.display = "block";
+      errorMsg.current.innerHTML =
+        "Please enter a username that is at least 3 characters long";
+      // username.current.style.border = "2px solid red";
+      // username.current.focus();
+    }
+    //email validation
+    else if (
       emailParts.length < 2 ||
       emailParts[0].length === 0 ||
       emailParts[1].length === 0 ||
       formData.email.includes(".com") === false
     ) {
       errorMsg.current.style.display = "block";
-      errorMsg.current.innerHTML = "Not a valid email format";
+      errorMsg.current.innerHTML = "Please enter a valid email";
       // email.current.style.border = "2px solid red";
       // email.current.focus();
-    } //check if username is atleast 3 characters
-    else if (formData.username.length < 3) {
-      errorMsg.current.style.display = "block";
-      errorMsg.current.innerHTML =
-        "Please enter a username that is at least 3 characters long";
-      // username.current.style.border = "2px solid red";
-      // username.current.focus();
-    } //check if password is atleast 5 characters long
+    }
+    //check if password is atleast 5 characters long
     else if (formData.password.length < 5) {
       errorMsg.current.style.display = "block";
       errorMsg.current.innerHTML =
@@ -97,56 +100,68 @@ const SignUpForm = () => {
   };
 
   return (
-    <Wrapper>
-      <Content>
-        <H1>Sign Up Form</H1>
-        <Form>
-          <Input
-            refProp={username}
-            required="required"
-            name="username"
-            placeholder="Username"
-            type="text"
-            handleChange={handleChange}
-            value={formData.username || ""}
-          />
-          <Input
-            refProp={email}
-            required="required"
-            name="email"
-            placeholder="Email"
-            type="text"
-            handleChange={handleChange}
-            value={formData.email || ""}
-          />
-          <Input
-            refProp={password}
-            required="required"
-            name="password"
-            placeholder="Password"
-            type="password"
-            handleChange={handleChange}
-            value={formData.password || ""}
-          />
-          <Input
-            refProp={confirmPassword}
-            required="required"
-            name="confirmPassword"
-            placeholder="Confirm Password"
-            type="password"
-            handleChange={handleChange}
-            value={formData.confirmPassword || ""}
-          />
-          <button onClick={handleSubmit}>Submit</button>
-        </Form>
-        <div ref={errorMsg} id="error" name="error"></div>
-      </Content>
-    </Wrapper>
+    <>
+      <Header />
+
+      <Wrapper>
+        <Content>
+          <H2>Sign Up</H2>
+          <Form>
+            <Input
+              refProp={username}
+              required="required"
+              name="username"
+              placeholder="Username"
+              type="text"
+              handleChange={handleChange}
+              value={formData.username || ""}
+            />
+            <Input
+              refProp={email}
+              required="required"
+              name="email"
+              placeholder="Email"
+              type="text"
+              handleChange={handleChange}
+              value={formData.email || ""}
+            />
+            <Input
+              refProp={password}
+              required="required"
+              name="password"
+              placeholder="Password"
+              type="password"
+              handleChange={handleChange}
+              value={formData.password || ""}
+            />
+            <Input
+              refProp={confirmPassword}
+              required="required"
+              name="confirmPassword"
+              placeholder="Confirm Password"
+              type="password"
+              handleChange={handleChange}
+              value={formData.confirmPassword || ""}
+            />
+            <BtnWrapper>
+              <Button handleSubmit={handleSubmit} text={"Submit"} />
+            </BtnWrapper>
+          </Form>
+          <ErrDiv>
+            <ErrorMsg ref={errorMsg} id="error" name="error"></ErrorMsg>
+          </ErrDiv>
+        </Content>
+      </Wrapper>
+    </>
   );
 };
 
 const Wrapper = styled.div`
-  height: 100vh;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("https://images.unsplash.com/photo-1579027989536-b7b1f875659b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80");
+  background-size: cover;
+  background-position: center;
+  height: 95vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -155,10 +170,18 @@ const Wrapper = styled.div`
 
 const Content = styled.div`
   background: white;
+  border-radius: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
-const H1 = styled.h1`
+const H2 = styled.h2`
   color: var(--text-orange);
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 `;
 
 const Form = styled.form`
@@ -166,8 +189,22 @@ const Form = styled.form`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 40px;
+  padding: 10px 50px;
   width: fit-content;
+`;
+
+const BtnWrapper = styled.div`
+  padding-top: 18px;
+`;
+
+const ErrorMsg = styled.div`
+  color: var(--text-orange);
+  font-size: 17px;
+`;
+
+const ErrDiv = styled.div`
+  width: 230px;
+  padding-bottom: 30px;
 `;
 
 export default SignUpForm;

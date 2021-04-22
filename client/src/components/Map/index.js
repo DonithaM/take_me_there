@@ -7,7 +7,6 @@ import {
   Marker,
   InfoWindow,
 } from "@react-google-maps/api";
-import { BiRestaurant } from "react-icons/bi";
 import MapStyles from "./MapStyles";
 import Button from "../Button";
 import Header from "../Header";
@@ -81,6 +80,17 @@ const Map = () => {
       });
   }, []);
 
+  const [cafesList, setCafesList] = useState([]);
+  useEffect(() => {
+    fetch("/getCafes")
+      .then((res) => {
+        return res.json();
+      })
+      .then((jsonData) => {
+        setCafesList(jsonData.data);
+      });
+  }, []);
+
   const handleSubmit = (ev) => {
     ev.preventDefault();
     history.push("/album");
@@ -109,7 +119,7 @@ const Map = () => {
         center={center}
         options={options}
       >
-        {console.log(restaurantList)}
+        {console.log(cafesList)}
         {restaurantList &&
           restaurantList.map((restaurant) => {
             return (
@@ -150,25 +160,25 @@ const Map = () => {
             );
           })}
 
-        {/* {touristAttractions &&
-          touristAttractions.map((site, index) => {
+        {cafesList &&
+          cafesList.map((cafe, index) => {
             return (
               <Marker
                 key={index}
                 position={{
-                  lat: site.geometry.location.lat,
-                  lng: site.geometry.location.lng,
+                  lat: cafe.geometry.location.lat,
+                  lng: cafe.geometry.location.lng,
                 }}
                 onClick={() => {
-                  setTouristAttractions(site);
+                  setCafesList(cafe);
                 }}
                 icon={{
-                  url: "/tourist.svg",
+                  url: "/cafe.svg",
                   scaledSize: new window.google.maps.Size(27, 27),
                 }}
               />
             );
-          })} */}
+          })}
 
         {museumsList &&
           museumsList.map((museum, index) => {

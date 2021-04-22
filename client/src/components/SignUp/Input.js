@@ -1,6 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 
+const InputStyles = {
+  height: "30px",
+  width: "220px",
+  border: "none",
+  background: "#f0f0f0",
+  borderRadius: "5px",
+  outline: "none",
+  fontSize: "17px",
+  paddingLeft: "10px",
+};
+
 const Input = ({
   refProp,
   required,
@@ -14,6 +25,7 @@ const Input = ({
     <Wrapper>
       {/* <label htmlFor={name}>{placeholder}</label> */}
       <input
+        style={InputStyles}
         ref={refProp}
         required={required}
         type={type}
@@ -27,7 +39,7 @@ const Input = ({
 };
 
 const Wrapper = styled.div`
-  padding-top: 20px;
+  padding-top: 25px;
 `;
 
 export default Input;

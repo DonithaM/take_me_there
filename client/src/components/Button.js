@@ -16,8 +16,8 @@ const Btn = styled.button`
     rgba(244, 140, 6, 1) 34%,
     rgba(255, 172, 18, 1) 73%
   );
-  -webkit-box-shadow: 0px -1px 14px 6px rgba(252, 163, 17, 0.3);
-  box-shadow: 0px -1px 14px 6px rgba(252, 163, 17, 0.3);
+  /* -webkit-box-shadow: 0px -1px 14px 6px rgba(252, 163, 17, 0.3);
+  box-shadow: 0px -1px 14px 6px rgba(252, 163, 17, 0.3); */
   color: #fff;
   font-weight: bold;
   margin: 10px;
