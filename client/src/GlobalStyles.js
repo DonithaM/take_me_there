@@ -7,7 +7,7 @@ export default createGlobalStyle`
       --secondary-color: #fff;
       --tertiary-color: #8418ba;
 
-      --orange-shade: #f48c06;
+      --orange-shade: #fa9d11;
       --light-orange: #ffe3b5;
       --dark-orange: #fb8500;
       --text-orange: #d00000;

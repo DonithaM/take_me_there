@@ -49,7 +49,7 @@ const getNearbyRestaurants = async (req, res) => {
       //     });
       // };
 
-      console.log(jsonData.results[0].photos[0].photo_reference);
+      //console.log(jsonData.results[0].photos[0].photo_reference);
       res.status(200).json({
         status: 200,
         message: "Nearby restaurants",

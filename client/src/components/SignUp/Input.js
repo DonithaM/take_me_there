@@ -12,7 +12,7 @@ const Input = ({
 }) => {
   return (
     <Wrapper>
-      <label htmlFor={name}>{placeholder}</label>
+      {/* <label htmlFor={name}>{placeholder}</label> */}
       <input
         ref={refProp}
         required={required}
@@ -26,6 +26,8 @@ const Input = ({
   );
 };
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  padding-top: 20px;
+`;
 
 export default Input;
