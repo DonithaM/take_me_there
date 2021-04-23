@@ -48,7 +48,6 @@ const Content = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 2;
-  //color: var(--orange-shade);
 `;
 
 const H1 = styled.h1`
