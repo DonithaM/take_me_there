@@ -203,6 +203,7 @@ const Map = () => {
         <Marker
           position={{ lat: center.lat, lng: center.lng }}
           key={center.lat}
+          title={"Hello"}
         />
 
         {selectedSpot && (

@@ -3,7 +3,7 @@ import { Image } from "cloudinary-react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import Header from "../Header";
-
+import Loading from "../Loading";
 import Button from "../Button";
 
 const Album = () => {
@@ -79,7 +79,7 @@ const Album = () => {
             );
           })} */}
 
-          {reviewData &&
+          {reviewData ? (
             reviewData.map((item, index) => {
               const dateStr = item.timeStamp.slice(0, 10);
               const timeStr = item.timeStamp.slice(11, 19);
@@ -98,7 +98,10 @@ const Album = () => {
                   </Event>
                 </Review>
               );
-            })}
+            })
+          ) : (
+            <Loading />
+          )}
         </Content>
       </Wrapper>
     </>
