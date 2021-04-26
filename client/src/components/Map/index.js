@@ -93,7 +93,11 @@ const Map = () => {
 
   const handleSubmit = (ev) => {
     ev.preventDefault();
-    history.push("/album");
+    if (localStorage.getItem("user_id")) {
+      history.push("/album");
+    } else {
+      history.push("/signup");
+    }
   };
 
   const { isLoaded, loadError } = useLoadScript({
