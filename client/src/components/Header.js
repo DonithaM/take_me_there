@@ -19,6 +19,12 @@ const Header = () => {
         <Link to="/login">
           <NavBtn>Login</NavBtn>
         </Link>
+        <Link to="/">
+          <NavBtn>Home</NavBtn>
+        </Link>
+        <Link to="/map">
+          <NavBtn>Map</NavBtn>
+        </Link>
       </NavItems>
     </Wrapper>
   );

@@ -82,7 +82,7 @@ const Album = () => {
           {reviewData ? (
             reviewData.map((item, index) => {
               const dateStr = item.timeStamp.slice(0, 10);
-              const timeStr = item.timeStamp.slice(11, 19);
+              const yearStr = item.timeStamp.slice(11, 19);
               return (
                 <Review key={index}>
                   <ImgWrapper>
@@ -94,7 +94,7 @@ const Album = () => {
                   <Event>Name of place/event : {item.place_visited}</Event>
                   <Event>Experience: {item.experience}</Event>
                   <Event>
-                    Date posted: {dateStr}, at {timeStr}
+                    Date posted: {dateStr}, {yearStr}
                   </Event>
                 </Review>
               );
