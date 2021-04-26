@@ -119,7 +119,6 @@ const Map = () => {
         center={center}
         options={options}
       >
-        {console.log(cafesList)}
         {restaurantList &&
           restaurantList.map((restaurant) => {
             return (
@@ -159,7 +158,7 @@ const Map = () => {
               />
             );
           })}
-
+        {console.log(cafesList)}
         {cafesList &&
           cafesList.map((cafe, index) => {
             return (
@@ -170,7 +169,7 @@ const Map = () => {
                   lng: cafe.geometry.location.lng,
                 }}
                 onClick={() => {
-                  setCafesList(cafe);
+                  setSelectedSpot(cafe);
                 }}
                 icon={{
                   url: "/cafe.svg",
