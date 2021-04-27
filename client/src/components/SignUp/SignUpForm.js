@@ -40,7 +40,7 @@ const SignUpForm = () => {
   const handleSubmit = (ev) => {
     ev.preventDefault();
     const emailParts = formData.email.split("@");
-    console.log(emailParts);
+    //console.log(emailParts);
     //check if username is atleast 3 characters
     if (formData.username.length < 3) {
       errorMsg.current.style.display = "block";
@@ -87,10 +87,10 @@ const SignUpForm = () => {
       })
         .then((res) => res.json())
         .then((jsonData) => {
-          console.log(jsonData);
+          //console.log(jsonData);
           const { status, message } = jsonData;
           if (status === 201) {
-            console.log("CONFIRMED", message);
+            //console.log("CONFIRMED", message);
             history.push("/login");
           } else if (status === 500) {
             console.log("ERROR", message);

@@ -33,20 +33,30 @@ const LoginForm = () => {
       .then((res) => res.json())
       .then((jsonData) => {
         const { data, status, message } = jsonData;
-        console.log("from login: ", data); //has id - store it to local storage
+        //console.log("from login: ", data); //has id - store it to local storage
         //set id - localstorage in  FE
-        localStorage.setItem("user_id", data.id);
+        if (data) {
+          localStorage.setItem("user_id", data.id);
+          localStorage.setItem("username", data.username);
+        }
+
         //data will include the id of the user as well - use it to link to the right user in the db
         if (status === 201) {
-          console.log("CONFIRMED", message);
+          //console.log("CONFIRMED", message);
           setSubStatus("confirmed");
           history.push("/");
         } else {
-          console.log("ERROR", message);
+          //console.log("ERROR", message);
           setSubStatus("error");
-          setErrMessage("error");
+          setErrMessage("Please enter the right credentials to log in");
         }
       });
+  };
+
+  const handleLogOut = (ev) => {
+    localStorage.setItem("user_id", "");
+    localStorage.setItem("username", "");
+    history.push("/");
   };
 
   return (
@@ -74,7 +84,8 @@ const LoginForm = () => {
             />
             {/* <button onClick={handleSubmit}>Submit</button> */}
             <BtnWrapper>
-              <Button handleSubmit={handleSubmit} text={"Submit"} />
+              <Button handleSubmit={handleSubmit} text={"Log In"} />
+              <Button handleSubmit={handleLogOut} text={"Log Out"} />
             </BtnWrapper>
           </Form>
 

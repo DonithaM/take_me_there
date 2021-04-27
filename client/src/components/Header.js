@@ -10,21 +10,24 @@ const Header = () => {
         <Logo>
           <HiLocationMarker />
         </Logo>
-        <Title>Take Me There</Title>
+        <Link to="/" style={{ textDecoration: "none" }}>
+          <Title>Take Me There</Title>
+        </Link>
       </Div>
+
       <NavItems>
         <Link to="/signup">
           <NavBtn>Sign up</NavBtn>
         </Link>
         <Link to="/login">
-          <NavBtn>Login</NavBtn>
+          <NavBtn>Login/Logout</NavBtn>
         </Link>
-        <Link to="/">
+        {/* <Link to="/">
           <NavBtn>Home</NavBtn>
         </Link>
         <Link to="/map">
           <NavBtn>Map</NavBtn>
-        </Link>
+        </Link> */}
       </NavItems>
     </Wrapper>
   );
@@ -53,7 +56,12 @@ const Div = styled.div`
   display: flex;
 `;
 
-const NavItems = styled.div``;
+const NavItems = styled.div`
+  /* @media (max-width: 768px) {
+    display: none;
+
+  } */
+`;
 
 const Logo = styled.div`
   color: var(--orange-shade);
@@ -64,8 +72,12 @@ const Logo = styled.div`
 
 const Title = styled.p`
   color: var(--orange-shade);
-  font-size: 20px;
-  padding-top: 14px;
+  font-size: 18px;
+  padding-top: 15px;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  text-decoration: none;
 `;
 
 export default Header;
