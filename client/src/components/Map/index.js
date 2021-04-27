@@ -52,7 +52,7 @@ const Map = () => {
         return res.json();
       })
       .then((jsonData) => {
-        console.log("night clubs", jsonData);
+        //console.log("night clubs", jsonData);
         setClubsList(jsonData.data);
       });
   }, []);
@@ -64,7 +64,6 @@ const Map = () => {
         return res.json();
       })
       .then((jsonData) => {
-        console.log("tourist attractions :", jsonData);
         setTouristAttractions(jsonData.data);
       });
   }, []);
@@ -162,7 +161,6 @@ const Map = () => {
               />
             );
           })}
-        {console.log(cafesList)}
         {cafesList &&
           cafesList.map((cafe, index) => {
             return (

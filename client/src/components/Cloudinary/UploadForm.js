@@ -9,6 +9,7 @@ const UploadForm = () => {
 
   const [formData, setFormData] = useState({
     id: localStorage.getItem("user_id"),
+    username: localStorage.getItem("username"),
     //add username in local storage for it to show up in the reviews.
   });
   //images
@@ -73,8 +74,8 @@ const UploadForm = () => {
           return res.json();
         })
         .then((data) => {
-          console.log("from inside fetch of Upload", data);
-          console.log("data url", data.url);
+          //console.log("from inside fetch of Upload", data);
+          //console.log("data url", data.url);
           setFormData({ ...formData, photoUrl: data.url });
           setSuccess("uploaded");
         });
@@ -102,13 +103,15 @@ const UploadForm = () => {
       })
         .then((res) => res.json())
         .then((jsonData) => {
-          console.log(jsonData);
+          //console.log(jsonData);
           setSuccess("submitted");
         });
     } catch (error) {
       console.log(error);
     }
   };
+
+  //console.log("form data", formData);
 
   return (
     <>

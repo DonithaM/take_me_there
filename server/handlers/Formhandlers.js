@@ -76,7 +76,7 @@ const getAllReviews = async (req, res) => {
 
   try {
     const allReviews = await db.collection("reviews").find().toArray();
-    console.log("result", allReviews);
+    //console.log("result", allReviews);
     if (allReviews) {
       res
         .status(201)

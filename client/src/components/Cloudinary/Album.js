@@ -13,7 +13,6 @@ const Album = () => {
 
   const handleSubmit = (ev) => {
     ev.preventDefault();
-    console.log("hello");
     history.push("/upload");
   };
 
@@ -33,7 +32,7 @@ const Album = () => {
       fetch("/getAllReviews")
         .then((res) => res.json())
         .then((data) => {
-          console.log(data.data);
+          //console.log(data.data);
           setReviewData(data.data);
         });
     } catch (error) {
@@ -46,7 +45,7 @@ const Album = () => {
     loadReviews();
   }, []);
 
-  console.log(reviewData);
+  //console.log(reviewData);
 
   return (
     <>
@@ -96,6 +95,7 @@ const Album = () => {
                   <Event>
                     Date posted: {dateStr}, {yearStr}
                   </Event>
+                  <Event>Posted by: {item.username}</Event>
                 </Review>
               );
             })
@@ -124,7 +124,6 @@ const H1 = styled.h1`
   justify-content: center;
   padding: 10px;
   color: var(--text-orange);
-  /* text-shadow: 2px 1px 11px rgba(244, 140, 6, 0.46); */
 `;
 
 const H2 = styled.h2`

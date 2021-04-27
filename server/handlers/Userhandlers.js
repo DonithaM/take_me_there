@@ -22,10 +22,10 @@ const signup = async (req, res) => {
   try {
     //generates salt for password encryption
     const salt = await bcrypt.genSalt(10);
-    console.log(salt);
+    //console.log(salt);
     //password encryption
     const hashedPassword = await bcrypt.hash(req.body.password, salt);
-    console.log(hashedPassword);
+    //console.log(hashedPassword);
     //user with hashed password
     const user = {
       username: req.body.username,
@@ -69,7 +69,7 @@ const login = async (req, res) => {
     // const test = await db.collection("users").find().toArray();
     // console.log(test);
     if (result) {
-      console.log("Result :", result); //result from DB
+      // console.log("Result :", result); //result from DB
       const passwordCompare = await bcrypt.compare(password, result.password);
 
       if (passwordCompare) {
